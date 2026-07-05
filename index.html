@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- saved from url=(0053)file:///Users/julialiu/Downloads/iamju_preview_4.html -->
+<!-- saved from url=(0053)file:///Users/julialiu/Downloads/iamju_preview_7.html -->
 <html lang="zh-Hant"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -98,7 +98,22 @@
   </header>
 
   
-    <div class="year-filter" id="yearFilter"><button class="year-btn active">All</button><button class="year-btn">2026</button><button class="year-btn">2025</button><button class="year-btn">2024</button><button class="year-btn">2023</button><button class="year-btn">2022</button><button class="year-btn">2021</button><button class="year-btn">2020</button><button class="year-btn">2019</button><button class="year-btn">2018</button><button class="year-btn">2017</button><button class="year-btn">2016</button><button class="year-btn">2015</button><button class="year-btn">2014</button></div>
+    <div class="year-filter" id="yearFilter">
+    <button class="year-btn active" onclick="setYear(&#39;all&#39;, this)">All</button>
+    <button class="year-btn" onclick="setYear(&#39;2026&#39;, this)">2026</button>
+    <button class="year-btn" onclick="setYear(&#39;2025&#39;, this)">2025</button>
+    <button class="year-btn" onclick="setYear(&#39;2024&#39;, this)">2024</button>
+    <button class="year-btn" onclick="setYear(&#39;2023&#39;, this)">2023</button>
+    <button class="year-btn" onclick="setYear(&#39;2022&#39;, this)">2022</button>
+    <button class="year-btn" onclick="setYear(&#39;2021&#39;, this)">2021</button>
+    <button class="year-btn" onclick="setYear(&#39;2020&#39;, this)">2020</button>
+    <button class="year-btn" onclick="setYear(&#39;2019&#39;, this)">2019</button>
+    <button class="year-btn" onclick="setYear(&#39;2018&#39;, this)">2018</button>
+    <button class="year-btn" onclick="setYear(&#39;2017&#39;, this)">2017</button>
+    <button class="year-btn" onclick="setYear(&#39;2016&#39;, this)">2016</button>
+    <button class="year-btn" onclick="setYear(&#39;2015&#39;, this)">2015</button>
+    <button class="year-btn" onclick="setYear(&#39;2014&#39;, this)">2014</button>
+  </div>
   <div class="search-bar">
     <input type="text" id="searchInput" placeholder="搜尋文章⋯⋯" oninput="onSearch()">
     <div class="search-count" id="searchCount"></div>
@@ -9927,30 +9942,6 @@ function renderPagination() {
 // 年份篩選
 let activeYear = 'all';
 
-function initYearFilter() {
-  const years = new Set();
-  allEntries().forEach(e => {
-    const y = e.querySelector('.entry-date').textContent.substring(0, 4);
-    years.add(y);
-  });
-  const sorted = Array.from(years).sort((a,b) => b - a);
-  const container = document.getElementById('yearFilter');
-
-  const allBtn = document.createElement('button');
-  allBtn.textContent = 'All';
-  allBtn.className = 'year-btn active';
-  allBtn.onclick = () => setYear('all', allBtn);
-  container.appendChild(allBtn);
-
-  sorted.forEach(y => {
-    const btn = document.createElement('button');
-    btn.textContent = y;
-    btn.className = 'year-btn';
-    btn.onclick = () => setYear(y, btn);
-    container.appendChild(btn);
-  });
-}
-
 function setYear(year, btn) {
   activeYear = year;
   document.querySelectorAll('.year-btn').forEach(b => b.classList.remove('active'));
@@ -9979,7 +9970,6 @@ function applyFilters() {
 
 // 初始化
 window.addEventListener('DOMContentLoaded', () => {
-  initYearFilter();
   filtered = allEntries();
   render();
 });
